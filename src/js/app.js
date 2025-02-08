@@ -1,6 +1,8 @@
 import Popover from "./Popover";
 
-const popoverFactory = new Popover();
+const popoverFactory = new Popover();method_name: function(attribute) {
+  
+},
 let actualPopovers = [];
 const popoverText =
   "And here's some amazing content. It's very engaging. Right?";
@@ -16,17 +18,17 @@ const showPopover = (eaderText, bodyText, el) => {
 
 const onClick = (e) => {
   const { target } = e;
-  
+
   if (target.classList.contains("btn")) {
-    const existingPopover = actualPopovers.find(
+    const matchingPopover = actualPopovers.find(
       (popover) => popover.name === target.name
     );
-    
-    if (existingPopover) {
+
+    if (matchingPopover) {
       // Поповер уже существует, поэтому закрываем его
-      popoverFactory.remove(existingPopover.id);
+      popoverFactory.remove(matchingPopover.id);
       actualPopovers = actualPopovers.filter(
-        (popover) => popover.id !== existingPopover.id
+        (popover) => popover.id !== matchingPopover.id
       );
     } else {
       // Поповер еще не существует, поэтому создаем его
