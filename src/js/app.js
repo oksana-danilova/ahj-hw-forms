@@ -15,12 +15,26 @@ const showPopover = (eaderText, bodyText, el) => {
 };
 
 const onClick = (e) => {
-  actualPopovers.forEach((popover) => popoverFactory.remove(popover.id));
-  actualPopovers = [];
-
   const { target } = e;
+  
   if (target.classList.contains("btn")) {
-    showPopover("Popover title", popoverText, target);
+    const existingPopover = actualPopovers.find(
+      (popover) => popover.name === target.name
+    );
+    
+    if (existingPopover) {
+      // Поповер уже существует, поэтому закрываем его
+      popoverFactory.remove(existingPopover.id);
+      actualPopovers = actualPopovers.filter(
+        (popover) => popover.id !== existingPopover.id
+      );
+    } else {
+      // Поповер еще не существует, поэтому создаем его
+      actualPopovers.push({
+        name: target.name,
+        id: popoverFactory.show("Popover title", popoverText, target)
+      });
+    }
   }
 };
 
