@@ -52,10 +52,12 @@ const popoverFactory = new Popover();
 let actualPopovers = [];
 const popoverText = "And here's some amazing content. It's very engaging. Right?";
 const container = document.querySelector(".container");
-const showPopover = (eaderText, bodyText, el) => {
+
+// eslint-disable-next-line no-unused-vars
+const showPopover = (headerText, bodyText, el) => {
   actualPopovers.push({
     name: el.name,
-    id: popoverFactory.show(eaderText, bodyText, el)
+    id: popoverFactory.show(headerText, bodyText, el)
   });
 };
 const onClick = e => {
@@ -63,11 +65,11 @@ const onClick = e => {
     target
   } = e;
   if (target.classList.contains("btn")) {
-    const existingPopover = actualPopovers.find(popover => popover.name === target.name);
-    if (existingPopover) {
+    const matchingPopover = actualPopovers.find(popover => popover.name === target.name);
+    if (matchingPopover) {
       // Поповер уже существует, поэтому закрываем его
-      popoverFactory.remove(existingPopover.id);
-      actualPopovers = actualPopovers.filter(popover => popover.id !== existingPopover.id);
+      popoverFactory.remove(matchingPopover.id);
+      actualPopovers = actualPopovers.filter(popover => popover.id !== matchingPopover.id);
     } else {
       // Поповер еще не существует, поэтому создаем его
       actualPopovers.push({
